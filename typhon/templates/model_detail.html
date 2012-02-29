@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load models %}
+{% block content %}
+<h1>Detail</h1>
+<ul>
+{% for field in object|model_fields %}
+    <li><strong>{{ field.label }}</strong>: {{ field.data }}</li>
+{% endfor %}
+</ul>
+{% include "_model_menu.html" %}
+{% endblock %}

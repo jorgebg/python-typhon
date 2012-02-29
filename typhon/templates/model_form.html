@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>
+{% if form.instance.pk %}
+	Update
+{% else %}
+	Create
+{% endif %}
+</h1>
+<form method="post" action="">
+	{% csrf_token %}
+    {% include 'form.html' with form=form %}
+
+    <div class="clearfix">
+        <div class="input">
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+    </div>
+</form>
+{% include "_model_menu.html" %}
+{% endblock %}

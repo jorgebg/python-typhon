@@ -1,0 +1,1 @@
+from typhon.settings.installers.manager import InstallersManager

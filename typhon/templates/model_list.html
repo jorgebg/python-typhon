@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load html %}
+{% block content %}
+<h2>List</h2>
+<ul>
+    {% for object in object_list %}
+    <li>
+    	{{ object }} 
+		{% with href=resource|add:"#detail" %}
+		{% link href object.pk View %}
+		{% endwith %}
+	</li>
+    {% endfor %}
+</ul>
+{% endblock %}

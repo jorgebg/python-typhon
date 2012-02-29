@@ -1,0 +1,30 @@
+{% load html %}
+<ul>
+{% ifequal view "detail" %}
+	{% with href=resource|add:"#update" %}
+	<li>{% link href object.pk Update %}</li>
+	{% endwith %}
+	{% with href=resource|add:"#delete" %}
+	<li>{% link href object.pk Delete %}</li>
+	{% endwith %}
+{% endifequal %}
+{% ifequal view "update" %}
+	{% with href=resource|add:"#detail" %}
+	<li>{% link href object.pk View %}</li>
+	{% endwith %}
+	{% with href=resource|add:"#delete" %}
+	<li>{% link href object.pk Delete %}</li>
+	{% endwith %}
+{% endifequal %}
+{% ifequal view "delete" %}
+	{% with href=resource|add:"#detail" %}
+	<li>{% link href object.pk View %}</li>
+	{% endwith %}
+	{% with href=resource|add:"#update" %}
+	<li>{% link href object.pk Update %}</li>
+	{% endwith %}
+{% endifequal %}
+	{% with href=resource|add:"#list" %}
+	<li>{% link href List %}</li>
+	{% endwith %}
+</ul>
