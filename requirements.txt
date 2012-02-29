@@ -1,0 +1,2 @@
+django
+-e git://github.com/jorgebg/python-tartarus.git#egg=tartarus
