@@ -10,16 +10,21 @@
 	  <li>
 	    <a href="{% url 'home' %}">Home</a>
 	  </li>
+	  {% ifequal resource.default view %}
+	  <li class="active">
+	  	<span class="divider">/</span>
+	  	{{ resource.label }}
+	  </li>
+	  {% else %}
 	  <li>
 	  	<span class="divider">/</span>
 	    <a href="{% url resource %}">{{ resource.label }}</a>
 	  </li>
-	  {% ifnotequal resource.default view %}
 	  <li class="active">
 	  	<span class="divider">/</span>
 	  	{{ view.label }}
 	  </li>
-	  {% endifnotequal %}
+	  {% endifequal %}
 	</ul>
 	{% endblock %}
 	{% block page %}

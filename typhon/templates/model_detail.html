@@ -23,9 +23,10 @@
 {% if object.pk %}
 	{% include "_model_admin.html" %}
 {% endif %}
-<ul>
+<dl class="dl-horizontal">
 {% for field in object|model_fields %}
-    <li><strong>{{ field.label }}</strong>: {{ field.data }}</li>
+    <dt>{{ field.label }}</dt>
+    <dd>{{ field.data }}</dd>
 {% endfor %}
-</ul>
+</dl>
 {% endblock %}
