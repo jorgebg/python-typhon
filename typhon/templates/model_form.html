@@ -1,21 +1,40 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "resource_base.html" %}
+{% load resources %}
+{% load url from future %}
+{% block title %}
 <h1>
-{% if form.instance.pk %}
-	Update
-{% else %}
-	Create
-{% endif %}
+	{{ view.label }}
+	{% if form.instance.pk %}
+		"{{ object }}"
+	{% endif %}
 </h1>
-<form method="post" action="">
-	{% csrf_token %}
-    {% include 'form.html' with form=form %}
-
-    <div class="clearfix">
-        <div class="input">
-            <input type="submit" class="btn btn-primary" value="Submit">
-        </div>
-    </div>
-</form>
-{% include "_model_menu.html" %}
+{% endblock %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'home' %}">Home</a>
+  </li>
+  <li>
+  	<span class="divider">/</span>
+    <a href="{% url resource %}">{{ resource.label }}</a>
+  </li>
+  {% if form.instance.pk %}
+  <li>
+  	<span class="divider">/</span>
+    {% with href=resource|add:"#detail" %}
+    <li><a href="{% url href object.pk %}">{{ object }}</a></li>
+    {% endwith %}
+  </li>
+  {% endif %}
+  <li class="active">
+  	<span class="divider">/</span>
+  	{{ view.label }}
+  </li>
+</ul>
+{% endblock %}
+{% block page %}
+	{% if form.instance.pk %}
+		{% include "_model_admin.html" %}
+	{% endif %}
+	{% include '_form.html' %}
 {% endblock %}

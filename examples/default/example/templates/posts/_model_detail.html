@@ -1,0 +1,12 @@
+{% load url from future %}
+    <div class="well">
+		{% with href=resource|add:"#detail" %}
+		<a href="{% url href object.pk %}">
+			{% comment %}
+            <img src="http://placehold.it/80x60" alt="object">
+            {% endcomment %}
+            {{ object }}
+        </a>
+		{% endwith %}
+		{% include '_model_admin.html' %}
+	</div>

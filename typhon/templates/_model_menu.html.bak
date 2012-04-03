@@ -1,4 +1,11 @@
 {% load html %}
+{% load url from future %}
+
+{% ifequal view "list" %}
+	{% with href=resource|add:"#create" %}
+	<a href="{% url href %}" class="btn btn-primary btn-large"><i class="icon-file icon-white"></i> Create</a>
+	{% endwith %}
+{% else %}
 <ul>
 {% ifequal view "detail" %}
 	{% with href=resource|add:"#update" %}
@@ -24,7 +31,10 @@
 	<li>{% link href object.pk Update %}</li>
 	{% endwith %}
 {% endifequal %}
+{% ifnotequal view "list" %}
 	{% with href=resource|add:"#list" %}
 	<li>{% link href List %}</li>
 	{% endwith %}
+{% endifnotequal %}
 </ul>
+{% endifequal %}

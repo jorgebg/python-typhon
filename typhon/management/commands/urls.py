@@ -10,6 +10,6 @@ class Command(BaseCommand):
         
     def show_urls(self, urllist, depth=0):
         for entry in urllist:
-            print "  " * depth, entry.regex.pattern
+            print "  " * depth, entry.regex.pattern, hasattr(entry, 'name') and ' ->  %s'%entry.name or ''
             if hasattr(entry, 'url_patterns'):
                 self.show_urls(entry.url_patterns, depth + 1)

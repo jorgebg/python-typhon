@@ -1,0 +1,10 @@
+{% load url from future %}
+{% load resources %}
+    <div class="well">
+		{% with href=resource|add:"#detail" %}
+		<a href="{% url href object.pk %}">
+            {{ object }}
+        </a>
+		{% endwith %}
+		{% include '_model_admin.html' %}
+	</div>

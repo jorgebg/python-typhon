@@ -3,7 +3,7 @@ from typhon.settings.installers import InstallersManager
 import typhon
 import os
 
-ROOT_URLCONF = 'typhon.urls' 
+ROOT_URLCONF = 'typhon.urls'
 
 TEMPLATE_DIRS += (
     PROJECT_ROOT + '/' + 'templates',
@@ -12,7 +12,14 @@ TEMPLATE_DIRS += (
 
 INSTALLED_APPS += (
     PROJECT_NAME,
+    'tartarus.django.templatetags',
     'typhon',
 )
 
 AUTOINSTALLED_APPS = InstallersManager()
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+        'typhon.context_processors.static_context',
+)
+
+TEMPLATE_VISIBLE_SETTINGS = [ 'PROJECT_NAME' ]

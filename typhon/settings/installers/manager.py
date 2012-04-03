@@ -31,7 +31,9 @@ class InstallersManager(tuple):
             installers = self.installers.values()
         urlpatterns = []
         for installer in installers:
-            urlpatterns += patterns('', installer.get_urlpatterns())
+            installer_urlpatterns=installer.get_urlpatterns()
+            if installer_urlpatterns:
+                urlpatterns += patterns('', installer_urlpatterns)
         return urlpatterns
             
     

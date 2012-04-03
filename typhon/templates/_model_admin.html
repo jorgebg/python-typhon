@@ -1,0 +1,13 @@
+{% load resources %}
+{% load url from future %}
+<div class="btn-group pull-right">
+  {% with href=resource|add:"#update" %}
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog" title="Options" alt="Options"></i><span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a href="{% url href object.pk %}"><i class="icon-pencil"></i> Edit</a></li>
+    {% endwith %}
+    {% with href=resource|add:"#delete" %}
+    <li><a href="{% url href object.pk %}"><i class="icon-trash"></i> Delete</a></li>
+    {% endwith %}
+  </ul>
+</div>

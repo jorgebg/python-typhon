@@ -1,0 +1,24 @@
+{% if has_filters %}
+<div class="nav nav-list well">
+{% for filter in filters %}
+	<li class="nav-header">
+	  {{ filter.label }}
+	</li>
+	{% for choice in filter.choices %}
+	  {% if choice.link_type == 'add' %}
+	    <li><a href="{{ choice.url }}" title="Add filter">{{ choice.label }} <span class="badge">{{ choice.count }}</span></a></li>
+	  {% else %}
+	    {% if choice.link_type == 'remove' %}
+	    <li class="active"><a href="{{ choice.url }}" title="Remove filter">{{ choice.label }}</a></li>
+	    {% else %}
+	      <li class="disable">{{ choice.label }}</li>
+	    {% endif %}
+	  {% endif %}
+	{% endfor %}
+{% endfor %}
+{% if is_filtered %}
+<li class="divider"></li>
+<li><a href="?">Show all</a></li>
+{% endif %}
+</div>
+{% endif %}

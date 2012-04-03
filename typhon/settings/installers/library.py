@@ -1,3 +1,4 @@
+import django
 from django.conf.urls.defaults import patterns, include, url
 from typhon.settings.installers.base import BaseInstaller     
 
@@ -13,3 +14,7 @@ class UserenaBaseInstaller(BaseInstaller):
     
     def set_urlpatterns(self, urlpatterns):
         return (r'^accounts/', include('userena.urls'))
+    
+
+class DjangoFiltersInstaller(BaseInstaller):
+    app = "django_filters"

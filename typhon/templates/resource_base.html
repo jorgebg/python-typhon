@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load resources %}
+{% load url from future %}
+{% block content %}
+	{% block title %}
+	<h1>{{resource.label}} {{ view.label }}</h1>
+	{% endblock %}
+	{% block breadcrumbs %}
+	<ul class="breadcrumb">
+	  <li>
+	    <a href="{% url 'home' %}">Home</a>
+	  </li>
+	  <li>
+	  	<span class="divider">/</span>
+	    <a href="{% url resource %}">{{ resource.label }}</a>
+	  </li>
+	  {% ifnotequal resource.default view %}
+	  <li class="active">
+	  	<span class="divider">/</span>
+	  	{{ view.label }}
+	  </li>
+	  {% endifnotequal %}
+	</ul>
+	{% endblock %}
+	{% block page %}
+	{% endblock %}
+{% endblock %}

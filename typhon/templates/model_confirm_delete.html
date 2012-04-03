@@ -1,16 +1,31 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>Delete</h1>
-
-<form method="post" action="">
-	{% csrf_token %}
-    {% include 'form.html' with form=form %}
-    <div class="clearfix">
-		<p>Are you sure?</p>
-        <div class="input">
-            <input type="submit" class="btn" value="Submit">
-        </div>
-    </div>
-</form>
-{% include "_model_menu.html" %}
+{% extends "resource_base.html" %}
+{% load resources %}
+{% load url from future %}
+{% block title %}
+<h1>{{ view.label }} "{{ object }}"</h1>
+{% endblock %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'home' %}">Home</a>
+  </li>
+  <li>
+  	<span class="divider">/</span>
+    <a href="{% url resource %}">{{ resource.label }}</a>
+  </li>
+  <li>
+  	<span class="divider">/</span>
+    {% with href=resource|add:"#detail" %}
+    <li><a href="{% url href object.pk %}">{{ object }}</a></li>
+    {% endwith %}
+  </li>
+  <li class="active">
+  	<span class="divider">/</span>
+  	{{ view.label }}
+  </li>
+</ul>
+{% endblock %}
+{% block page %}
+<p>Are you sure?</p>
+{% include '_form.html' with submit='Yes' submit_class='btn-danger'%}
 {% endblock %}

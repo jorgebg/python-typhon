@@ -1,15 +1,26 @@
-{% extends "base.html" %}
-{% load html %}
-{% block content %}
-<h2>List</h2>
-<ul>
-    {% for object in object_list %}
-    <li>
-    	{{ object }} 
-		{% with href=resource|add:"#detail" %}
-		{% link href object.pk View %}
-		{% endwith %}
-	</li>
-    {% endfor %}
-</ul>
+{% extends "resource_base.html" %}
+{% load resources %}
+{% load url from future %}
+{% block page %}
+<div class="row">
+	<div class="span8">
+	    {% for object in object_list %}
+	    {% include '_model_detail.html' %}
+	    {% endfor %}
+	    {% include "_pagination.html" %}
+	</div>
+	<div class="span4">
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				{% with href=resource|add:"#create" %}
+				<a href="{% url href %}" class="btn btn-primary btn-large"><i class="icon-file icon-white"></i> Create</a>
+				{% endwith %}
+			</div>
+		</div>
+		<div class="btn-toolbar">
+			{% include "_sort.html" %}
+		</div>
+		{% include "_filter.html" %}
+	</div>
+</div>
 {% endblock %}

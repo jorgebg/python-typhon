@@ -1,11 +1,31 @@
-{% extends "base.html" %}
-{% load models %}
-{% block content %}
-<h1>Detail</h1>
+{% extends "resource_base.html" %}
+{% load models resources %}
+{% load url from future %}
+{% block title %}
+<h1>{{ object }}</h1>
+{% endblock %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'home' %}">Home</a>
+  </li>
+  <li>
+  	<span class="divider">/</span>
+    <a href="{% url resource %}">{{ resource.label }}</a>
+  </li>
+  <li class="active">
+  	<span class="divider">/</span>
+  	{{ object }}
+  </li>
+</ul>
+{% endblock %}
+{% block page %}
+{% if object.pk %}
+	{% include "_model_admin.html" %}
+{% endif %}
 <ul>
 {% for field in object|model_fields %}
     <li><strong>{{ field.label }}</strong>: {{ field.data }}</li>
 {% endfor %}
 </ul>
-{% include "_model_menu.html" %}
 {% endblock %}

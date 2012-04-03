@@ -1,0 +1,11 @@
+{% if is_sorted %}
+<div class="btn-group">
+  <div class="btn disabled">Sort by</div>
+  <button class="btn dropdown-toggle" data-toggle="dropdown">{{ sortchoice_obj.label }} <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+  	{% for choice in sort.choices %}
+    <li {% ifequal choice.id sortchoice_obj.id %}class="active"{% endifequal %}><a href="?{{ choice.queryset }}">{{ choice.label }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

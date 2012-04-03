@@ -1,0 +1,57 @@
+{% block head %}
+    {% if not wizard %}
+        {{ form.media }}
+    {% else %}
+        {{ wizard.form.media }}
+    {% endif %}
+{% endblock %}
+
+{% if form.non_field_errors.0 %}
+    <div class="alert-message block-message error">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+{% with method=method|default:'post' action=action|default:''%}
+<form method="{{ method }}" action="{{ action }}">
+{% ifequal method 'post' %}
+	{% csrf_token %}
+{% endifequal %}
+{% for field in form %}
+    {% if field.is_hidden %}
+        {{ field }}
+    {% else %}
+        <div class="clearfix form-item{% if field.errors %} error{% endif %}">
+            <label for="id_{{ field.name }}">
+                {{ field.label }}: {% if field.field.required %}<span class="required">*</span>{% endif %}
+            </label>
+        
+            <div class="input">
+                <div class="input-wrapper">
+                    {{ field }}
+
+                    {% if field.errors %}
+                        <ul class="help">
+                            {% for error in field.errors %}
+                                <li class="help-inline">{{ error|escape }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                
+                    {% if field.help_text %}
+                        <div class="help-text">
+                            <p>{{ field.help_text }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+    <div class="clearfix">
+        <div class="input">
+            <input type="submit" class="btn {% firstof submit_class 'btn-primary' %}" value="{% firstof submit 'Submit' %}">
+        </div>
+    </div>
+</form>
+{% endwith %}
