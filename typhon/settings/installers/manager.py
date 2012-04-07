@@ -1,5 +1,6 @@
 from typhon.settings.installers.base import BaseInstaller
 from typhon.settings.installers import library
+from tartarus.utils import get_subclasses
 from django.utils import importlib
 from django.conf.urls.defaults import patterns
 import os
@@ -8,6 +9,11 @@ import logging
 class InstallersManager(tuple):
     
     installers = {}
+    
+    def __init__(self, library=None):
+        if not library:
+            library = get_subclasses(BaseInstaller)
+        self.library = library
     
     def __add__(self, other):
         for app in other:
@@ -44,11 +50,10 @@ class InstallersManager(tuple):
             self._module = importlib.import_module(os.environ["DJANGO_SETTINGS_MODULE"])
         return self._module
     
-    @classmethod
     def get_installer(self, app):
         module = self.get_module()
         installer = None
-        for i in BaseInstaller.__subclasses__():
+        for i in self.library:
             if i.app == app:
                 installer = i
                 break

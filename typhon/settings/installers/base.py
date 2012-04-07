@@ -11,16 +11,12 @@ class BaseInstaller(object):
         self.module = module
     
     def install(self, config={}):
-        if self.set_installed():
-            self.before_install(config)
-            self.set_settings(config)
-            self.after_install(config)
-    
-    def before_install(self, config={}):
-        pass
-    
-    def after_install(self, config={}):
-        pass
+        if not self.is_installed:
+            self.set_config(config)
+            self.before_install()
+            self.set_settings()
+            self.after_install()
+            self.set_installed()
     
     def set_installed(self):
         if not self.is_installed:
@@ -33,12 +29,38 @@ class BaseInstaller(object):
         return self.app in self.module.INSTALLED_APPS
         
     
-    def set_settings(self, config={}):
+    def set_config(self, config={}):
         for ban in ['app']:
             if config.has_key(ban):
                 del config[ban] 
         self.__dict__.update(config)
     
+    def set_settings(self, settings=None):
+        if not settings:
+            settings = self.get_settings()
+        if settings:
+            for key,default in settings.iteritems():
+                value = getattr(self.module, key, None)
+                if not hasattr(self.module, key):
+                    value = default
+                elif isinstance(value, tuple) or isinstance(value, list):
+                    for dv in default:
+                        if dv not in value:
+                            value += (dv,)
+                setattr(self.module, key, value)
+                
+                
+    
+    def get_settings(self):
+        pass   
+    
     def get_urlpatterns(self):
         pass
     
+
+    
+    def before_install(self):
+        pass
+    
+    def after_install(self):
+        pass
