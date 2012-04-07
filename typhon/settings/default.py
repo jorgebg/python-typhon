@@ -20,6 +20,7 @@ AUTOINSTALLED_APPS = InstallersManager()
 
 TEMPLATE_CONTEXT_PROCESSORS = (
         'typhon.context_processors.static_context',
+        'django.core.context_processors.request',
 )
 
 TEMPLATE_VISIBLE_SETTINGS = [ 'PROJECT_NAME' ]

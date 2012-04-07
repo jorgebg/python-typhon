@@ -2,10 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% block head %}
     <meta charset="utf-8">
-    <title>{{ project_name }}</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<title>{% block title %}{{ project_name }}{% endblock %}</title>
+  	{% block meta %}
+	<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+	<meta name="description" content="{% block meta_description %}{% endblock %}">
+  	{% endblock %}
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -24,17 +27,18 @@
     {% endblock %}
 
     <!-- Le fav and touch icons -->
+    {% block favicons %}
     <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
     <link rel="apple-touch-icon" href="{% static "images/apple-touch-icon.png" %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static "images/apple-touch-icon-72x72.png" %}">
     <link rel="apple-touch-icon" sizes="114x114" href="{% static "images/apple-touch-icon-114x114.png" %}">
+    {% endblock %}
     
-    {% block head %}
     {% endblock %}
   </head>
 
   <body>
-
+	 {% block body %}
      <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="{% block inner-navbar-class %}container{% endblock %}">
@@ -65,15 +69,33 @@
     </div>
     
     <div class="{% block content-class %}container{% endblock %}">
-        {% block content %}
+    	
+    	{% block messages %}
+		{% for message in messages %}
+		<div class="alert alert-{{ message.tags }}" data-alert="alert">
+		<a class="close" data-dismiss="alert" href="#">&times;</a>
+		{{ message }}
+		</div>
+		{% endfor %}
+		{% endblock %}
+
+        {% block main %}
+        {% block content_title %}
 		<h1>Bootstrap starter template</h1>
+		{% endblock %}
+		{% block breadcrumbs %}
+		{% endblock %}
+        {% block content %}
 		<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 		{% endblock %}
+		{% endblock %}
+		
 	    {% block footer %}
 		<footer>
 			<p>&copy; {{ project_name }} {{ date.year }}</p>
 		</footer>
 	    {% endblock %}
+	    
     </div> <!-- /container -->
 
 	{% block javascript %}
@@ -83,6 +105,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     {% endblock %}
-
+    
+    {% endblock %}
   </body>
 </html>

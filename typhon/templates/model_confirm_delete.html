@@ -1,7 +1,7 @@
 {% extends "resource_base.html" %}
 {% load resources %}
 {% load url from future %}
-{% block title %}
+{% block content_title %}
 <h1>{{ view.label }} "{{ object }}"</h1>
 {% endblock %}
 {% block breadcrumbs %}
@@ -25,7 +25,7 @@
   </li>
 </ul>
 {% endblock %}
-{% block page %}
+{% block content %}
 <p>Are you sure?</p>
 {% include '_form.html' with submit='Yes' submit_class='btn-danger'%}
 {% endblock %}

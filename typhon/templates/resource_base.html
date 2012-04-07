@@ -1,32 +1,28 @@
-{% extends "base.html" %}
+{% extends request.is_ajax|yesno:"ajax.html,base.html" %}
 {% load resources %}
 {% load url from future %}
-{% block content %}
-	{% block title %}
-	<h1>{{resource.label}} {{ view.label }}</h1>
-	{% endblock %}
-	{% block breadcrumbs %}
-	<ul class="breadcrumb">
-	  <li>
-	    <a href="{% url 'home' %}">Home</a>
-	  </li>
-	  {% ifequal resource.default view %}
-	  <li class="active">
-	  	<span class="divider">/</span>
-	  	{{ resource.label }}
-	  </li>
-	  {% else %}
-	  <li>
-	  	<span class="divider">/</span>
-	    <a href="{% url resource %}">{{ resource.label }}</a>
-	  </li>
-	  <li class="active">
-	  	<span class="divider">/</span>
-	  	{{ view.label }}
-	  </li>
-	  {% endifequal %}
-	</ul>
-	{% endblock %}
-	{% block page %}
-	{% endblock %}
+{% block content_title %}
+<h1>{{resource.label}} {{ view.label }}</h1>
+{% endblock %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'home' %}">Home</a>
+  </li>
+  {% ifequal resource.default view %}
+  <li class="active">
+  	<span class="divider">/</span>
+  	{{ resource.label }}
+  </li>
+  {% else %}
+  <li>
+  	<span class="divider">/</span>
+    <a href="{% url resource %}">{{ resource.label }}</a>
+  </li>
+  <li class="active">
+  	<span class="divider">/</span>
+  	{{ view.label }}
+  </li>
+  {% endifequal %}
+</ul>
 {% endblock %}
